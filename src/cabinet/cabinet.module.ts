@@ -1,12 +1,12 @@
-import { Module } from "@nestjs/common";
-import { CabinetController } from "./cabinet.controller";
-import { CabinetService } from "./cabinet.service";
-import { MemoryCabinetRepository } from "./repository/memory-cabinet-repository";
+import { Module } from '@nestjs/common';
+import { CabinetController } from './cabinet.controller';
+import { CabinetService } from './cabinet.service';
 import { ICabinetRepository } from './repository/ICabinetRepository';
+import { RawqueryCabinetRepository } from './repository/rawquery-cabinet.repository';
 
 const repo = {
   provide: ICabinetRepository,
-  useClass: MemoryCabinetRepository,
+  useClass: RawqueryCabinetRepository,
 };
 
 @Module({
