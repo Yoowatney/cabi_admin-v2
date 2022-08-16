@@ -10,7 +10,7 @@ export class RawqueryCabinetRepository implements ICabinetRepository {
       host: 'localhost',
       user: 'root',
       password: process.env.DB_PASSWORD,
-      database: '42cabi_test',
+      database: '42cabi_DB',
       bigIntAsNumber: true,
     });
   }
