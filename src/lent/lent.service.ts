@@ -9,7 +9,7 @@ export class LentService {
   constructor(private cabinetRepository: ILentRepository) {}
 
   async getLentUserInfo(): Promise<LentInfoResponseDto> {
-    this.logger.debug('call getCabinetCountFloor');
+    this.logger.debug('call getLentUserInfo');
     const result = await this.cabinetRepository.findAll();
 
     return { lentInfo: result };
