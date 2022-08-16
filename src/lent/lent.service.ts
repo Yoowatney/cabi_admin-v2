@@ -6,11 +6,11 @@ import { ILentRepository } from './repository/ILentRepository';
 export class LentService {
   private logger = new Logger(LentService.name);
 
-  constructor(private cabinetRepository: ILentRepository) {}
+  constructor(private lentRepository: ILentRepository) {}
 
   async getLentUserInfo(): Promise<LentInfoResponseDto> {
     this.logger.debug('call getLentUserInfo');
-    const result = await this.cabinetRepository.findAll();
+    const result = await this.lentRepository.getLentInfo();
 
     return { lentInfo: result };
   }
