@@ -6,5 +6,5 @@ export abstract class ILentRepository {
    *
    * @returns LentInfoDto[]
    */
-  abstract findAll(): Promise<LentInfoDto[]>;
+  abstract getLentInfo(): Promise<LentInfoDto[]>;
 }

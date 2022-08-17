@@ -15,7 +15,7 @@ export class RawqueryLentRepository implements ILentRepository {
     });
   }
 
-  async findAll(): Promise<LentInfoDto[]> {
+  async getLentInfo(): Promise<LentInfoDto[]> {
     const connection = await this.pool.getConnection();
     const lentInfo = [];
 
