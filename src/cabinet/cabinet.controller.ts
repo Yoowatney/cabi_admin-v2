@@ -4,13 +4,13 @@ import { CabinetFloorResponseDto } from './dto/cabinet-floor.response.dto';
 
 @Controller('cabinet')
 export class CabinetController {
-  constructor(private cabinerService: CabinetService) {}
+  constructor(private cabinetService: CabinetService) {}
 
   private logger = new Logger(CabinetController.name);
 
   @Get('count/floor')
   async getCabinetCountFloor(): Promise<CabinetFloorResponseDto> {
     this.logger.warn('call getCabinetCountFloor()');
-    return await this.cabinerService.getCabinetCountFloor();
+    return await this.cabinetService.getCabinetCountFloor();
   }
 }
