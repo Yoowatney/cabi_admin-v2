@@ -1,7 +1,16 @@
-import { Controller, Get, Logger, Patch } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Logger,
+  Patch,
+  UsePipes,
+  ValidationPipe,
+} from '@nestjs/common';
 import { ActivationService } from './activation.service';
 import { BanCabinetResponseDto } from './dto/ban-cabinet.response.dto';
 import { InactivatedCabinetResponseDto } from './dto/inactivated-cabinet.response.dto';
+import { PatchActivationDto } from './dto/patch-activation.dto';
 
 @Controller('activation')
 export class ActivationController {
@@ -16,8 +25,20 @@ export class ActivationController {
   }
 
   @Patch('/')
-  async patchActivation(): Promise<void> {
-    this.logger.log('call patchActivation()');
+  @UsePipes(
+    new ValidationPipe({
+      transform: true,
+      transformOptions: {
+        enableImplicitConversion: true,
+      },
+    }),
+  )
+  async patchActivation(
+    @Body()
+    cabinetInfo: PatchActivationDto,
+  ): Promise<boolean> {
+    this.logger.log('call patchActivation(), data : ', cabinetInfo);
+    return await this.activationService.patchActivation(cabinetInfo);
   }
 
   @Get('/ban')
