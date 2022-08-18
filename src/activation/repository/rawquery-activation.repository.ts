@@ -3,6 +3,7 @@ import { ConfigService } from '@nestjs/config';
 import { IActivationRepository } from './IActivationRepository';
 import * as mariadb from 'mariadb';
 import { InactivatedCabinetDto } from '../dto/inactivated-cabinet.dto';
+import { BanCabinetDto } from '../dto/ban-cabinet.dto';
 
 export class RawqueryActivationRepository implements IActivationRepository {
   private pool;
@@ -25,6 +26,17 @@ export class RawqueryActivationRepository implements IActivationRepository {
         JOIN disable d
         ON d.disable_cabinet_id = c.cabinet_id AND d.status = 1
         WHERE c.activation=0;
+    `;
+    const result = await connection.query(content);
+    return result;
+  }
+
+  async findBan(): Promise<BanCabinetDto[]> {
+    const connection = await this.pool.getConnection();
+    const content = `
+      SELECT c.floor, c.section, c.cabinet_num
+      FROM cabinet c
+      WHERE c.activation=2;
     `;
     const result = await connection.query(content);
     return result;

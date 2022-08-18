@@ -1,5 +1,6 @@
 import { Controller, Get, Logger, Patch } from '@nestjs/common';
 import { ActivationService } from './activation.service';
+import { BanCabinetResponseDto } from './dto/ban-cabinet.response.dto';
 import { InactivatedCabinetResponseDto } from './dto/inactivated-cabinet.response.dto';
 
 @Controller('activation')
@@ -20,7 +21,8 @@ export class ActivationController {
   }
 
   @Get('/ban')
-  async getBanCabinet(): Promise<void> {
+  async getBanCabinet(): Promise<BanCabinetResponseDto> {
     this.logger.log('call getBanCabinet()');
+    return await this.activationService.getBanCabientList();
   }
 }
