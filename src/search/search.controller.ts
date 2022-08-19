@@ -1,4 +1,5 @@
 import { Controller, Get, Logger, ParseIntPipe, Query } from '@nestjs/common';
+import { QueryDto } from './dto/search-query.dto';
 import { SearchResponseDto } from './dto/search-response.dto';
 import { SearchService } from './search.service';
 
@@ -8,23 +9,25 @@ export class SearchController {
 
   constructor(private searchService: SearchService) {}
   @Get('/')
-  async getSearch(
-    @Query('intraId') intraId: string,
-    @Query('cabinetNum', ParseIntPipe) cabinetNum: number,
-    @Query('floor', ParseIntPipe) floor: number,
-  ): Promise<SearchResponseDto> {
+  async getSearch(@Query() queryDto: QueryDto): Promise<SearchResponseDto> {
     this.logger.log('call getSearch()');
     let resultFromLent;
     let resultFromLentLog;
-    if (intraId) {
+    if (queryDto.intraId) {
       [resultFromLent, resultFromLentLog] = await Promise.all([
-        this.searchService.getLentByIntraId(intraId),
-        this.searchService.getLentLogByIntraId(intraId),
+        this.searchService.getLentByIntraId(queryDto.intraId),
+        this.searchService.getLentLogByIntraId(queryDto.intraId),
       ]);
-    } else if (cabinetNum && floor) {
+    } else if (queryDto.cabinetNum && queryDto.floor) {
       [resultFromLent, resultFromLentLog] = await Promise.all([
-        this.searchService.getLentByCabinetNum(cabinetNum, floor),
-        this.searchService.getLentLogByCabinetNum(cabinetNum, floor),
+        this.searchService.getLentByCabinetNum(
+          queryDto.cabinetNum,
+          queryDto.floor,
+        ),
+        this.searchService.getLentLogByCabinetNum(
+          queryDto.cabinetNum,
+          queryDto.floor,
+        ),
       ]);
     }
     const result = { resultFromLent, resultFromLentLog };

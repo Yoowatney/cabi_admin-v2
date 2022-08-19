@@ -1,5 +1,4 @@
-import { LentByCabiDto } from '../dto/search-lent-by-cabi.dto';
-import { LentByIntraDto } from '../dto/search-lent-by-intra.dto';
+import { LentDto } from '../dto/search-lent.dto';
 import { LentLogDto } from '../dto/search-lentlog.dto';
 
 export abstract class ISearchRepository {
@@ -9,7 +8,7 @@ export abstract class ISearchRepository {
    * @returns LentByIntraDto[]
    */
 
-  abstract getLentByIntraId(intraId: string): Promise<LentByIntraDto[]>;
+  abstract getLentByIntraId(intraId: string): Promise<LentDto[]>;
 
   /**
    * intra_id 기준 lent_log 검색 정보를 가져옵니다.
@@ -26,7 +25,7 @@ export abstract class ISearchRepository {
   abstract getLentByCabinetNum(
     cabinetNum: number,
     floor: number,
-  ): Promise<LentByCabiDto[]>;
+  ): Promise<LentDto[]>;
 
   /**
    * cabinet_num 기준 lent_log 검색 정보를 가져옵니다.

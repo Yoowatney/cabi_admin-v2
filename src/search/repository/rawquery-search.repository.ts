@@ -1,8 +1,7 @@
 import * as mariadb from 'mariadb';
 import { ISearchRepository } from './ISearchRepository';
-import { LentByIntraDto } from '../dto/search-lent-by-intra.dto';
 import { LentLogDto } from '../dto/search-lentlog.dto';
-import { LentByCabiDto } from '../dto/search-lent-by-cabi.dto';
+import { LentDto } from '../dto/search-lent.dto';
 
 export class RawquerySearchRepository implements ISearchRepository {
   private pool;
@@ -18,7 +17,7 @@ export class RawquerySearchRepository implements ISearchRepository {
   }
 
   // 검색 BY intraId FROM lent
-  async getLentByIntraId(intraId: string): Promise<LentByIntraDto[]> {
+  async getLentByIntraId(intraId: string): Promise<LentDto[]> {
     const connection = await this.pool.getConnection();
     const lentInfo = [];
 
@@ -92,7 +91,7 @@ export class RawquerySearchRepository implements ISearchRepository {
   async getLentByCabinetNum(
     cabinetNum: number,
     floor: number,
-  ): Promise<LentByCabiDto[]> {
+  ): Promise<LentDto[]> {
     const connection = await this.pool.getConnection();
     const lentInfo = [];
 

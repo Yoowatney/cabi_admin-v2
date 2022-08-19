@@ -1,10 +1,10 @@
 /**
  * Intra id기준 검색한 Lent 정보를 나타내는 DTO입니다.
  */
-export class LentByIntraDto {
+export class LentDto {
   intra_id: string;
 
-  auth: number;
+  auth = 0;
 
   cabinet_id: number;
 
