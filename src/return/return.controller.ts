@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   Controller,
   Get,
   Logger,
@@ -28,7 +29,10 @@ export class ReturnController {
     @Query('cabinetIdx', ParseIntPipe) cabinetIdx: number,
   ): Promise<string> {
     this.logger.log('call patchReturn()');
-    await this.returnService.patchReturn(cabinetIdx);
+    const result = await this.returnService.patchReturn(cabinetIdx);
+    if (!result) {
+      throw new BadRequestException();
+    }
     return 'ok';
   }
 }
