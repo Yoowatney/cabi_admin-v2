@@ -1,16 +1,18 @@
 import { LentInfoDto } from '../dto/lent-info.dto';
 import { ILentRepository } from './ILentRepository';
 import * as mariadb from 'mariadb';
+import { Inject } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 
 export class RawqueryLentRepository implements ILentRepository {
   private pool;
 
-  constructor() {
+  constructor(@Inject(ConfigService) private configService: ConfigService) {
     this.pool = mariadb.createPool({
-      host: 'localhost',
-      user: 'root',
-      password: process.env.DB_PASSWORD,
-      database: '42cabi_DB',
+      host: this.configService.get<string>('database.host'),
+      user: this.configService.get<string>('database.username'),
+      password: this.configService.get<string>('database.password'),
+      database: this.configService.get<string>('database.database'),
       bigIntAsNumber: true,
     });
   }

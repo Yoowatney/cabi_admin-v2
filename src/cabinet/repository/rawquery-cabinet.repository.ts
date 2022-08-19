@@ -1,16 +1,18 @@
 import { CabinetFloorDto } from '../dto/cabinet-floor.dto';
 import { ICabinetRepository } from './ICabinetRepository';
 import * as mariadb from 'mariadb';
+import { ConfigService } from '@nestjs/config';
+import { Inject } from '@nestjs/common';
 
 export class RawqueryCabinetRepository implements ICabinetRepository {
   private pool;
 
-  constructor() {
+  constructor(@Inject(ConfigService) private configService: ConfigService) {
     this.pool = mariadb.createPool({
-      host: 'localhost',
-      user: 'root',
-      password: process.env.DB_PASSWORD,
-      database: '42cabi_DB',
+      host: this.configService.get<string>('database.host'),
+      user: this.configService.get<string>('database.username'),
+      password: this.configService.get<string>('database.password'),
+      database: this.configService.get<string>('database.database'),
       bigIntAsNumber: true,
     });
   }

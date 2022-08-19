@@ -1,4 +1,11 @@
-import { Controller, Get, Logger, ParseIntPipe, Query } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Logger,
+  Query,
+  UsePipes,
+  ValidationPipe,
+} from '@nestjs/common';
 import { QueryDto } from './dto/search-query.dto';
 import { SearchResponseDto } from './dto/search-response.dto';
 import { SearchService } from './search.service';
@@ -9,6 +16,7 @@ export class SearchController {
 
   constructor(private searchService: SearchService) {}
   @Get('/')
+  @UsePipes(new ValidationPipe({ transform: true }))
   async getSearch(@Query() queryDto: QueryDto): Promise<SearchResponseDto> {
     this.logger.log('call getSearch()');
     let resultFromLent;
