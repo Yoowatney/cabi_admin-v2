@@ -2,16 +2,18 @@ import * as mariadb from 'mariadb';
 import { ISearchRepository } from './ISearchRepository';
 import { LentLogDto } from '../dto/search-lentlog.dto';
 import { LentDto } from '../dto/search-lent.dto';
+import { Inject } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 
 export class RawquerySearchRepository implements ISearchRepository {
   private pool;
 
-  constructor() {
+  constructor(@Inject(ConfigService) private configService: ConfigService) {
     this.pool = mariadb.createPool({
-      host: 'localhost',
-      user: 'root',
-      password: process.env.DB_PASSWORD,
-      database: '42cabi_DB',
+      host: this.configService.get<string>('database.host'),
+      user: this.configService.get<string>('database.username'),
+      password: this.configService.get<string>('database.password'),
+      database: this.configService.get<string>('database.database'),
       bigIntAsNumber: true,
     });
   }
