@@ -36,7 +36,7 @@ export class RawqueryReturnRepository implements IReturnRepository {
     const connection = await this.pool.getConnection();
     try {
       await connection.beginTransaction();
-  
+
       // 해당 사물함의 user, lent 정보 가져옴
       const userLentInfo = await this.getUserLent(connection, cabinetIdx);
       if (!userLentInfo) {
@@ -59,7 +59,10 @@ export class RawqueryReturnRepository implements IReturnRepository {
     }
   }
 
-  async getUserLent(connection: any, cabinetIdx: number): Promise<CabinetLentDto | null> {
+  async getUserLent(
+    connection: any,
+    cabinetIdx: number,
+  ): Promise<CabinetLentDto | null> {
     const query = `
       SELECT lent_cabinet_id, lent_user_id, DATE_FORMAT(lent_time, '%Y-%m-%d %H:%i:%s') AS lent_time
       FROM lent
