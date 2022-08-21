@@ -1,4 +1,3 @@
-import { Controller, Get, Logger } from '@nestjs/common';
 import {
   BadRequestException,
   Controller,
