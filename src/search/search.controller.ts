@@ -1,5 +1,6 @@
 import { Controller, Get, Logger } from '@nestjs/common';
 import {
+  BadRequestException,
   Controller,
   Get,
   Logger,
@@ -23,12 +24,12 @@ export class SearchController {
     this.logger.log('call getSearch()');
     let resultFromLent;
     let resultFromLentLog;
-    if (queryDto.intraId) {
+    if (queryDto.intraId && !(queryDto.cabinetNum || queryDto.floor)) {
       [resultFromLent, resultFromLentLog] = await Promise.all([
         this.searchService.getLentByIntraId(queryDto.intraId),
         this.searchService.getLentLogByIntraId(queryDto.intraId),
       ]);
-    } else if (queryDto.cabinetNum && queryDto.floor) {
+    } else if (queryDto.cabinetNum && queryDto.floor && !queryDto.intraId) {
       [resultFromLent, resultFromLentLog] = await Promise.all([
         this.searchService.getLentByCabinetNum(
           queryDto.cabinetNum,
@@ -39,6 +40,8 @@ export class SearchController {
           queryDto.floor,
         ),
       ]);
+    } else {
+      throw new BadRequestException();
     }
     const result = { resultFromLent, resultFromLentLog };
     return result;
