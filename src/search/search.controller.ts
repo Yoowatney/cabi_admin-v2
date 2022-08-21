@@ -1,7 +1,18 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { Controller, Get, Logger } from '@nestjs/common';
 =======
 import { Controller, Get, Logger, ParseIntPipe, Query } from '@nestjs/common';
+=======
+import {
+  Controller,
+  Get,
+  Logger,
+  Query,
+  UsePipes,
+  ValidationPipe,
+} from '@nestjs/common';
+>>>>>>> 4f16be5 (:recycle: fix: config database connection #9)
 import { QueryDto } from './dto/search-query.dto';
 import { SearchResponseDto } from './dto/search-response.dto';
 import { SearchService } from './search.service';
@@ -13,9 +24,13 @@ export class SearchController {
 
   @Get('/')
 <<<<<<< HEAD
+<<<<<<< HEAD
   async getSearch(): Promise<void> {
     this.logger.log('call getSearch()');
 =======
+=======
+  @UsePipes(new ValidationPipe({ transform: true }))
+>>>>>>> 4f16be5 (:recycle: fix: config database connection #9)
   async getSearch(@Query() queryDto: QueryDto): Promise<SearchResponseDto> {
     this.logger.log('call getSearch()');
     let resultFromLent;
