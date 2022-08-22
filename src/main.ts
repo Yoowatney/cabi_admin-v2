@@ -4,6 +4,7 @@ import { AppModule } from './app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  app.setGlobalPrefix('api');
   const swaggerConfig = new DocumentBuilder()
     .setTitle('Cabi Admin v2 API')
     .setDescription('Cabi Admin v2 API 명세')
