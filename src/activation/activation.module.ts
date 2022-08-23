@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { AuthModule } from 'src/auth/auth.module';
 import { ActivationController } from './activation.controller';
 import { ActivationService } from './activation.service';
 import { IActivationRepository } from './repository/IActivationRepository';
@@ -12,5 +13,6 @@ const repo = {
 @Module({
   controllers: [ActivationController],
   providers: [ActivationService, repo],
+  imports: [AuthModule], // for JWTAuthGuard
 })
 export class ActivationModule {}

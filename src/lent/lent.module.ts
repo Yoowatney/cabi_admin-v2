@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { AuthModule } from 'src/auth/auth.module';
 import { LentController } from './lent.controller';
 import { LentService } from './lent.service';
 import { ILentRepository } from './repository/ILentRepository';
@@ -12,5 +13,6 @@ const repo = {
 @Module({
   controllers: [LentController],
   providers: [LentService, repo],
+  imports: [AuthModule], // for JWTAuthGuard
 })
 export class LentModule {}

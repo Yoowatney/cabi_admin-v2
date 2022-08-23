@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { AuthModule } from 'src/auth/auth.module';
 import { ISearchRepository } from './repository/ISearchRepository';
 import { RawquerySearchRepository } from './repository/rawquery-search.repository';
 import { SearchController } from './search.controller';
@@ -12,5 +13,6 @@ const repo = {
 @Module({
   controllers: [SearchController],
   providers: [SearchService, repo],
+  imports: [AuthModule], // for JWTAuthGuard
 })
 export class SearchModule {}

@@ -4,14 +4,17 @@ import {
   Get,
   Logger,
   Query,
+  UseGuards,
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
+import { JWTAuthGuard } from 'src/auth/auth.guard';
 import { QueryDto } from './dto/search-query.dto';
 import { SearchResponseDto } from './dto/search-response.dto';
 import { SearchService } from './search.service';
 
 @Controller('search')
+@UseGuards(JWTAuthGuard)
 export class SearchController {
   private logger = new Logger(SearchController.name);
 

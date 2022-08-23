@@ -4,15 +4,18 @@ import {
   Get,
   Logger,
   Patch,
+  UseGuards,
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
+import { JWTAuthGuard } from 'src/auth/auth.guard';
 import { ActivationService } from './activation.service';
 import { BanCabinetResponseDto } from './dto/ban-cabinet.response.dto';
 import { InactivatedCabinetResponseDto } from './dto/inactivated-cabinet.response.dto';
 import { PatchActivationDto } from './dto/patch-activation.dto';
 
 @Controller('activation')
+@UseGuards(JWTAuthGuard)
 export class ActivationController {
   constructor(private activationService: ActivationService) {}
 

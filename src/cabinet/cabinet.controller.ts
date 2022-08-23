@@ -1,8 +1,10 @@
-import { Controller, Get, Logger } from '@nestjs/common';
+import { Controller, Get, Logger, UseGuards } from '@nestjs/common';
+import { JWTAuthGuard } from 'src/auth/auth.guard';
 import { CabinetService } from './cabinet.service';
 import { CabinetFloorResponseDto } from './dto/cabinet-floor.response.dto';
 
 @Controller('cabinet')
+@UseGuards(JWTAuthGuard)
 export class CabinetController {
   constructor(private cabinetService: CabinetService) {}
 
