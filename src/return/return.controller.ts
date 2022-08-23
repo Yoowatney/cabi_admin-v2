@@ -6,11 +6,14 @@ import {
   ParseIntPipe,
   Patch,
   Query,
+  UseGuards,
 } from '@nestjs/common';
+import { JWTAuthGuard } from 'src/auth/auth.guard';
 import { CabinetDto } from './dto/cabinet.dto';
 import { ReturnService } from './return.service';
 
 @Controller('return')
+@UseGuards(JWTAuthGuard)
 export class ReturnController {
   private logger = new Logger(ReturnController.name);
 
