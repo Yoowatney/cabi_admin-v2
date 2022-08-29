@@ -39,15 +39,19 @@ export class RawqueryReturnRepository implements IReturnRepository {
 
       // 해당 사물함의 user, lent 정보 가져옴
       const userLentInfo = await this.getUserLent(connection, cabinetIdx);
+      console.log(cabinetIdx);
       if (!userLentInfo) {
         return false;
       }
+      console.log(userLentInfo);
 
       // lent 테이블에서 해당 사물함의 대여 정보 삭제
       await this.deleteLent(connection, userLentInfo.lent_cabinet_id);
+      console.log('deleteLent');
 
       // lent_log에 반납되는 사물함 정보 추가
       await this.addLentLog(connection, Object.values(userLentInfo));
+      console.log('userLentInfo');
 
       await connection.commit();
       return true;

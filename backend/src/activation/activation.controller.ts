@@ -10,8 +10,8 @@ import {
 } from '@nestjs/common';
 import { JWTAuthGuard } from 'src/auth/auth.guard';
 import { ActivationService } from './activation.service';
-import { BanCabinetResponseDto } from './dto/ban-cabinet.response.dto';
-import { InactivatedCabinetResponseDto } from './dto/inactivated-cabinet.response.dto';
+import { BanCabinetDto } from './dto/ban-cabinet.dto';
+import { InactivatedCabinetDto } from './dto/inactivated-cabinet.dto';
 import { PatchActivationDto } from './dto/patch-activation.dto';
 
 @Controller('activation')
@@ -22,7 +22,7 @@ export class ActivationController {
   private logger = new Logger(ActivationController.name);
 
   @Get('/')
-  async getInactivatedCabinet(): Promise<InactivatedCabinetResponseDto> {
+  async getInactivatedCabinet(): Promise<InactivatedCabinetDto[]> {
     this.logger.log('call getInactivatedCabinet()');
     return await this.activationService.getInactivatedCabinetList();
   }
@@ -45,7 +45,7 @@ export class ActivationController {
   }
 
   @Get('/ban')
-  async getBanCabinet(): Promise<BanCabinetResponseDto> {
+  async getBanCabinet(): Promise<BanCabinetDto[]> {
     this.logger.log('call getBanCabinet()');
     return await this.activationService.getBanCabientList();
   }

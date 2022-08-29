@@ -15,7 +15,7 @@ export class ReturnService {
   }
 
   async patchReturn(cabinetIdx: number): Promise<boolean> {
-    this.logger.debug(`call patchReturn' (cabinetIdx: ${cabinetIdx})`);
+    this.logger.debug(`call patchReturn (cabinetIdx: ${cabinetIdx})`);
     const result = await this.returnRepository.returnCabinet(cabinetIdx);
     return result;
   }
